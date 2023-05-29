@@ -29,7 +29,7 @@ ENV CURRENT_VERSION=
 ENV UPGRADE_VERSION=
 ENV ACTION=
 
-CMD ["bin/bash", "-c", "while IFS=',' read -r MOSIP_DB_NAME CURRENT_VERSION UPGRADE_VERSION ACTION ;\
+CMD ["/bin/bash", "-c", "while IFS=',' read -r MOSIP_DB_NAME CURRENT_VERSION UPGRADE_VERSION ACTION ;\
     do \
     cd /home/mosip/repos/db_upgrade_scripts ;\
     echo \"DB=\" $MOSIP_DB_NAME ; \
