@@ -49,10 +49,17 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+
+      - name: Setup branch and env
+        run: |
+          # Strip git ref prefix from version
+          echo "BRANCH_NAME=$(echo ${{ github.ref }} | sed -e 's,.*/\(.*\),\1,')" >> $GITHUB_ENV
+          echo "GPG_TTY=$(tty)" >> $GITHUB_ENV  
+
       - name: Clone DB upgrade scripts
         run: |
           cd ${{ env.SERVICE_LOCATION }}
-          bash ./get_db_data.sh
+          bash ./get_db_data.sh ${{ env.BRANCH_NAME }}
       - name: Ready the DB upgrade scripts
         if: ${{ !contains(github.ref, 'master') || !contains(github.ref, 'main') }}
         run: |
